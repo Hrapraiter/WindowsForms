@@ -29,11 +29,10 @@ namespace Clock
                 "hh:mm:ss tt",
                 System.Globalization.CultureInfo.InvariantCulture
                 );
-            if (checkBoxShowDate.Checked)
-                labelTime.Text += $"\n{DateTime.Now.ToString("yyyy.MM.dd")}";
-            if (checkBoxShowWeekDay.Checked)
-                labelTime.Text += $"\n{DateTime.Now.ToString("ddd")}";
+            if (checkBoxShowDate.Checked)    labelTime.Text += $"\n{DateTime.Now.ToString("yyyy.MM.dd")}";
+            if (checkBoxShowWeekDay.Checked) labelTime.Text += $"\n{DateTime.Now.ToString("ddd")}";
 
+            notifyIcon.Text = labelTime.Text;
             
             
         }
