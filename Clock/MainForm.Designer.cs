@@ -33,6 +33,7 @@
             this.labelTime = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.checkBoxShowDate = new System.Windows.Forms.CheckBox();
+            this.checkBoxShowWeekDay = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // labelTime
@@ -54,12 +55,23 @@
             // 
             this.checkBoxShowDate.AutoSize = true;
             this.checkBoxShowDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBoxShowDate.Location = new System.Drawing.Point(25, 255);
+            this.checkBoxShowDate.Location = new System.Drawing.Point(25, 339);
             this.checkBoxShowDate.Name = "checkBoxShowDate";
             this.checkBoxShowDate.Size = new System.Drawing.Size(194, 41);
             this.checkBoxShowDate.TabIndex = 1;
             this.checkBoxShowDate.Text = "Show date";
             this.checkBoxShowDate.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxShowWeekDay
+            // 
+            this.checkBoxShowWeekDay.AutoSize = true;
+            this.checkBoxShowWeekDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBoxShowWeekDay.Location = new System.Drawing.Point(25, 397);
+            this.checkBoxShowWeekDay.Name = "checkBoxShowWeekDay";
+            this.checkBoxShowWeekDay.Size = new System.Drawing.Size(278, 41);
+            this.checkBoxShowWeekDay.TabIndex = 2;
+            this.checkBoxShowWeekDay.Text = "Show Week Day";
+            this.checkBoxShowWeekDay.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -67,10 +79,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.checkBoxShowWeekDay);
             this.Controls.Add(this.checkBoxShowDate);
             this.Controls.Add(this.labelTime);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            /*crash designer*/this.Location = new System.Drawing.Point(System.Convert.ToInt32(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - this.Width / 1.5) , 0);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Clock PV_522";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -82,6 +97,7 @@
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.CheckBox checkBoxShowDate;
+        private System.Windows.Forms.CheckBox checkBoxShowWeekDay;
     }
 }
 
