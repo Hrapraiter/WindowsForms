@@ -1,4 +1,11 @@
-\obj
-\bin
-*.config
-*.resx
+*.gitignore
+*.slnx
+
+**/*/.config
+**/*/.resx
+
+/obj/
+/bin/
+
+.vs/
+.git/
