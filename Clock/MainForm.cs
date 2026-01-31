@@ -52,8 +52,6 @@ namespace Clock
 
             notifyIcon.Text = labelTime.Text;
 
-            
-            this.TopMost = tsmiTopmost.Checked;
             setVisibility(tsmiShowControls.Checked); // не уверен что хорошее решение
 
             checkBoxShowDate.Checked = tsmiShowDate.Checked;
@@ -112,7 +110,7 @@ namespace Clock
             tsmiShowWeekday.Checked = checkBoxShowWeekDay.Checked;
         }
 
-        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        private void notifyIcon_DoubleClick(object sender, MouseEventArgs e)
         {
             tsmiTopmost.Checked = true;
         }
