@@ -12,6 +12,9 @@ namespace Clock
 {
     public partial class MainForm : Form
     {
+        FontDialog fontDialog;
+        ColorDialog backgroundDialog;
+        ColorDialog foregroundDialog;
         public MainForm()
         {
             InitializeComponent();
@@ -20,7 +23,10 @@ namespace Clock
                 Screen.PrimaryScreen.Bounds.Width - this.Width - 50,
                 50
                 );
-            
+
+            backgroundDialog = new ColorDialog();
+            foregroundDialog = new ColorDialog();
+            fontDialog = new FontDialog();
         }
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -67,5 +73,24 @@ namespace Clock
         private void checkBoxShowWeekDay_CheckedChanged(object sender, EventArgs e) => tsmiShowWeekday.Checked = (sender as CheckBox).Checked;
         private void tsmiShowDate_CheckedChanged(object sender, EventArgs e) => checkBoxShowDate.Checked = (sender as ToolStripMenuItem).Checked;
         private void tsmiShowWeekday_CheckedChanged(object sender, EventArgs e) => checkBoxShowWeekDay.Checked = (sender as ToolStripMenuItem).Checked;
+
+        private void tsmiBackgroundColor_Click(object sender, EventArgs e)
+        {
+            DialogResult result = backgroundDialog.ShowDialog();
+            if (result == DialogResult.OK)
+                labelTime.BackColor = backgroundDialog.Color;
+        }
+
+        private void tsmiForegraundColor_Click(object sender, EventArgs e)
+        {
+            if (foregroundDialog.ShowDialog() == DialogResult.OK)
+                labelTime.ForeColor = foregroundDialog.Color;
+        }
+
+        private void tsmiFont_Click(object sender, EventArgs e)
+        {
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+                labelTime.Font = fontDialog.Font;
+        }
     }
 }
