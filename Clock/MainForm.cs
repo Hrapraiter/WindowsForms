@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -91,6 +93,32 @@ namespace Clock
         {
             if (fontDialog.ShowDialog() == DialogResult.OK)
                 labelTime.Font = fontDialog.Font;
+        }
+        static bool while_end = true; 
+        
+        private void labelTime_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (tsmiShowControls.Checked || e.Button != MouseButtons.Left) return;
+            Thread thread = new Thread
+            (
+                (() =>
+                {
+                    while (while_end)
+                    {
+                        this.Left = Cursor.Position.X - labelTime.Width / 2;
+                        this.Top = Cursor.Position.Y - labelTime.Height / 2;
+                    }
+                    while_end = true;
+                })
+            );
+            thread.Start();
+            
+        }
+
+        private void labelTime_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+                while_end = false;
         }
     }
 }

@@ -68,6 +68,8 @@
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "CurrentTime";
             this.labelTime.DoubleClick += new System.EventHandler(this.labelTime_DoubleClick);
+            this.labelTime.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseDown);
+            this.labelTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseUp);
             // 
             // contextMenuStrip
             // 
@@ -153,14 +155,14 @@
             // tsmiForegraundColor
             // 
             this.tsmiForegraundColor.Name = "tsmiForegraundColor";
-            this.tsmiForegraundColor.Size = new System.Drawing.Size(270, 34);
+            this.tsmiForegraundColor.Size = new System.Drawing.Size(254, 34);
             this.tsmiForegraundColor.Text = "Foregraund color";
             this.tsmiForegraundColor.Click += new System.EventHandler(this.tsmiForegraundColor_Click);
             // 
             // tsmiBackgroundColor
             // 
             this.tsmiBackgroundColor.Name = "tsmiBackgroundColor";
-            this.tsmiBackgroundColor.Size = new System.Drawing.Size(270, 34);
+            this.tsmiBackgroundColor.Size = new System.Drawing.Size(254, 34);
             this.tsmiBackgroundColor.Text = "Background color";
             this.tsmiBackgroundColor.Click += new System.EventHandler(this.tsmiBackgroundColor_Click);
             // 
