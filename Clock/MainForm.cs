@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
@@ -25,6 +27,10 @@ namespace Clock
                 Screen.PrimaryScreen.Bounds.Width - this.Width - 50,
                 50
                 );
+            tsmiAutorun.Checked = Registry.GetValue(
+                @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run",
+                "Clock",
+                null) == null ? false : true;
 
             backgroundDialog = new ColorDialog();
             foregroundDialog = new ColorDialog();
@@ -44,6 +50,8 @@ namespace Clock
 
             notifyIcon.Text = labelTime.Text;
             
+            //FontFamily font = new FontFamily(new Uri(pack://aplication:,,,/fonts/) , "./#Digital-7 Mono);
+            //неполучилось потратил не мало нервных клеток и пока без успешно
             
         }
         void setVisibility(bool visible)
@@ -119,6 +127,36 @@ namespace Clock
         {
             if(e.Button == MouseButtons.Left)
                 while_end = false;
+        }
+
+        private void tsmiAutorun_CheckedChanged(object sender, EventArgs e)
+        {
+            const string RegAutorunDirect = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+            string value = '\"' + Directory.GetCurrentDirectory() + "\\Clock.exe\"";
+
+            object RegValue = Registry.GetValue
+                (
+                @"HKEY_CURRENT_USER\"+ RegAutorunDirect,
+                "Clock",
+                null
+                );
+            if (RegValue != null)
+            {
+                if (tsmiAutorun.Checked) return;
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(RegAutorunDirect, true))
+                    if (key != null)
+                        key.DeleteValue("Clock");
+                
+            }
+            else if(tsmiAutorun.Checked)
+                    Registry.SetValue
+                        (
+                        @"HKEY_CURRENT_USER\" + RegAutorunDirect,
+                        "Clock",
+                        value
+                        );
+            
+                
         }
     }
 }
