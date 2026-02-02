@@ -111,12 +111,12 @@ namespace Clock
             (
                 (() =>
                 {
+                    while_end = true;
                     while (while_end)
                     {
                         this.Left = Cursor.Position.X - labelTime.Width / 2;
                         this.Top = Cursor.Position.Y - labelTime.Height / 2;
                     }
-                    while_end = true;
                 })
             );
             thread.Start();
