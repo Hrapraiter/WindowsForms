@@ -68,8 +68,6 @@
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "CurrentTime";
             this.labelTime.DoubleClick += new System.EventHandler(this.labelTime_DoubleClick);
-            this.labelTime.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseDown);
-            this.labelTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseUp);
             // 
             // contextMenuStrip
             // 
@@ -188,7 +186,6 @@
             this.tsmiAutorun.Name = "tsmiAutorun";
             this.tsmiAutorun.Size = new System.Drawing.Size(240, 32);
             this.tsmiAutorun.Text = "Autorun";
-            this.tsmiAutorun.CheckedChanged += new System.EventHandler(this.tsmiAutorun_CheckedChanged);
             // 
             // toolStripSeparator5
             // 

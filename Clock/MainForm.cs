@@ -12,15 +12,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;      //Input/Output
+using System.Runtime.InteropServices;
 
 namespace Clock
 {
     public partial class MainForm : Form
     {
-        const string RegUserAutorunDirect = @"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
-        string path = '\"' + Directory.GetCurrentDirectory() + "\\Clock.exe\"";
-
         FontDialog fontDialog;
         ColorDialog backgroundDialog;
         ColorDialog foregroundDialog;
@@ -32,13 +30,16 @@ namespace Clock
                 Screen.PrimaryScreen.Bounds.Width - this.Width - 50,
                 50
                 );
-            tsmiAutorun.Checked = Registry.GetValue(RegUserAutorunDirect, "Clock", null) == null ? false : true;
 
             backgroundDialog = new ColorDialog();
             foregroundDialog = new ColorDialog();
-            fontDialog = new FontDialog();
+            fontDialog = new FontDialog(this);
+
+            
            
         }
+        
+        
         private void timer_Tick(object sender, EventArgs e)
         {
             
@@ -53,10 +54,6 @@ namespace Clock
             if (checkBoxShowWeekDay.Checked) labelTime.Text += $"\n{DateTime.Now.ToString("ddd")}";
 
             notifyIcon.Text = labelTime.Text;
-
-            //FontFamily font = new FontFamily(new Uri("pack://aplication:,,,/fonts/"), "./#Digital-7 Mono");
-            //не работает точно не знаю почему но догадываюсь что дело в конфигурации проекта т.к.
-            //в его директории нет xaml файла
 
         }
         void setVisibility(bool visible)
@@ -107,68 +104,6 @@ namespace Clock
             if (fontDialog.ShowDialog() == DialogResult.OK)
                 labelTime.Font = fontDialog.Font;
         }
-        static bool while_end = true; 
         
-        private void labelTime_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (tsmiShowControls.Checked || e.Button != MouseButtons.Left) return;
-            Thread thread = new Thread
-            (
-                (() =>
-                {
-                    while (while_end)
-                    {
-                        this.Left = Cursor.Position.X - labelTime.Width / 2;
-                        this.Top = Cursor.Position.Y - labelTime.Height / 2;
-                    }
-                    while_end = true;
-                })
-            );
-            thread.Start();
-            
-        }
-
-        private void labelTime_MouseUp(object sender, MouseEventArgs e)
-        {
-            if(e.Button == MouseButtons.Left)
-                while_end = false;
-        }
-
-        private void tsmiAutorun_CheckedChanged(object sender, EventArgs e)
-        {
-            
-            object RegValue = Registry.GetValue
-                (
-                RegUserAutorunDirect,
-                "Clock",
-                null
-                );
-            if (RegValue != null)
-            {
-                if (tsmiAutorun.Checked) return;
-                else
-                {
-                    int indexF_REG_DIRECT = RegUserAutorunDirect.IndexOf('\\');
-                    string PathToKey = RegUserAutorunDirect.Substring(indexF_REG_DIRECT+1 , RegUserAutorunDirect.Length - indexF_REG_DIRECT-1);
-
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(PathToKey, true))
-                    {
-                        if (key != null)
-                            key.DeleteValue("Clock");
-                    }
-                }
-                    
-            }
-            else
-            {
-                if (tsmiAutorun.Checked)
-                    Registry.SetValue
-                        (
-                            RegUserAutorunDirect,
-                            "Clock",
-                            path
-                        );
-            }
-        }
     }
 }
