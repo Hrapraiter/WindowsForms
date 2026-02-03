@@ -102,8 +102,8 @@ namespace Clock
             if (fontDialog.ShowDialog() == DialogResult.OK)
                 labelTime.Font = fontDialog.Font;
         }
+
         static bool while_end = true; 
-        
         private void labelTime_MouseDown(object sender, MouseEventArgs e)
         {
             if (tsmiShowControls.Checked || e.Button != MouseButtons.Left) return;
@@ -155,8 +155,6 @@ namespace Clock
                         "Clock",
                         value
                         );
-            
-                
         }
     }
 }
