@@ -66,25 +66,30 @@ namespace Clock
         {
             Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..");
             string filename = "Settings.ini";
-            StreamReader reader = new StreamReader(filename);
-            
-            tsmiTopmost.Checked         = bool.Parse(reader.ReadLine());
-            tsmiShowControls.Checked    = bool.Parse(reader.ReadLine());
-            tsmiShowDate.Checked        = bool.Parse(reader.ReadLine());
-            tsmiShowWeekday.Checked     = bool.Parse(reader.ReadLine());
-            tsmiAutorun.Checked         = bool.Parse(reader.ReadLine());
-            labelTime.BackColor = backgroundDialog.Color    = Color.FromArgb(int.Parse(reader.ReadLine()));
-            labelTime.ForeColor = foregroundDialog.Color    = Color.FromArgb(int.Parse(reader.ReadLine()));
-            fontDialog.FontFile         = reader.ReadLine();
-            
-            
-            reader.Close();
-
-            if (!string.IsNullOrWhiteSpace(fontDialog.FontFile))
+            try
             {
-                PrivateFontCollection pfc = new PrivateFontCollection();
-                pfc.AddFontFile(fontDialog.FontFile);
-                labelTime.Font = new Font(pfc.Families[0] , float.Parse(reader.ReadLine()));
+                StreamReader reader = new StreamReader(filename);
+
+                tsmiTopmost.Checked = bool.Parse(reader.ReadLine());
+                tsmiShowControls.Checked = bool.Parse(reader.ReadLine());
+                tsmiShowDate.Checked = bool.Parse(reader.ReadLine());
+                tsmiShowWeekday.Checked = bool.Parse(reader.ReadLine());
+                tsmiAutorun.Checked = bool.Parse(reader.ReadLine());
+                labelTime.BackColor = backgroundDialog.Color = Color.FromArgb(int.Parse(reader.ReadLine()));
+                labelTime.ForeColor = foregroundDialog.Color = Color.FromArgb(int.Parse(reader.ReadLine()));
+                fontDialog.FontFile = reader.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(fontDialog.FontFile))
+                {
+                    fontDialog.ApplyFontExample(fontDialog.FontFile , float.Parse(reader.ReadLine()));
+                    labelTime.Font = fontDialog.Font;
+                    
+                }
+                reader.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(this , ex.Message);
             }
         }
         private void timer_Tick(object sender, EventArgs e)

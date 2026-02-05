@@ -78,14 +78,13 @@ namespace Clock
                 );
             LoadFonts();
         }
-        void ApplyFontExample()
+        public void ApplyFontExample(string filename , float size)
         {
             //PrivateFontCollection pfc = new PrivateFontCollection();
             if (pfc != null) pfc.Dispose();
-
             pfc = new PrivateFontCollection();// test 0 & 1
-            pfc.AddFontFile(fonts[comboBoxFonts.SelectedItem.ToString()]);
-            labelExample.Font = new Font(pfc.Families[0], (float)numericUpDownFontSize.Value);
+            pfc.AddFontFile(filename);
+            labelExample.Font = new Font(pfc.Families[0], size);
         }
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -94,11 +93,11 @@ namespace Clock
         }
         private void comboBoxFonts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyFontExample();   
+            ApplyFontExample(fonts[comboBoxFonts.SelectedItem.ToString()] , (float)numericUpDownFontSize.Value);   
         }
         private void numericUpDownFontSize_ValueChanged(object sender, EventArgs e)
         {
-            ApplyFontExample();
+            ApplyFontExample(fonts[comboBoxFonts.SelectedItem.ToString()] , (float)numericUpDownFontSize.Value);
         }
     }
 }
