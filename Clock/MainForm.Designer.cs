@@ -256,7 +256,7 @@ namespace Clock
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(413, 450);
+            this.ClientSize = new System.Drawing.Size(449, 450);
             this.Controls.Add(this.buttonHideControls);
             this.Controls.Add(this.checkBoxShowWeekDay);
             this.Controls.Add(this.checkBoxShowDate);
@@ -270,6 +270,7 @@ namespace Clock
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Clock PV_522";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -18,8 +18,10 @@ namespace Clock
     {
         Form parent;
         Dictionary<string, string> fonts;
-        public decimal Value { get { return numericUpDownFontSize.Value; } }//test 1 
+        //public decimal Value { get { return numericUpDownFontSize.Value; } set { numericUpDownFontSize.Value = value; } }//test 1 
         public PrivateFontCollection pfc { get; private set; }// test 0 & 1
+        public string FontFile { get; set; }
+        public Font Font { get; private set; }
         public FontDialog(Form parent)
         {
             InitializeComponent();
@@ -87,7 +89,8 @@ namespace Clock
         }
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            
+            this.Font = labelExample.Font;
+            this.FontFile = fonts[comboBoxFonts.SelectedItem.ToString()];
         }
         private void comboBoxFonts_SelectedIndexChanged(object sender, EventArgs e)
         {

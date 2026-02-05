@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;      //Input/Output
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 using System.Drawing.Text;
 
 namespace Clock
@@ -35,13 +36,57 @@ namespace Clock
                 Screen.PrimaryScreen.Bounds.Width - this.Width - 50,
                 50
                 );
-            
+            fontDialog = new FontDialog(this);
             backgroundDialog = new ColorDialog();
             foregroundDialog = new ColorDialog();
-            fontDialog = new FontDialog(this);
+            LoadSettings();
         }
+        void SaveSettings() 
+        {
+            Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..");
+            string filename = "Settings.ini";
+            StreamWriter writer = new StreamWriter(filename);
+            
+            writer.WriteLine(tsmiTopmost.Checked);
+            writer.WriteLine(tsmiShowControls.Checked);
+            writer.WriteLine(tsmiShowDate.Checked);
+            writer.WriteLine(tsmiShowWeekday.Checked);
+            writer.WriteLine(tsmiAutorun.Checked);
+            writer.WriteLine(labelTime.BackColor.ToArgb());
+            writer.WriteLine(labelTime.ForeColor.ToArgb());
+            writer.WriteLine(fontDialog.FontFile);
+            writer.WriteLine(labelTime.Font.Size);
+            
 
-        
+            writer.Close();
+
+            Process.Start("notepad", filename);
+        }
+        void LoadSettings() 
+        {
+            Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..");
+            string filename = "Settings.ini";
+            StreamReader reader = new StreamReader(filename);
+            
+            tsmiTopmost.Checked         = bool.Parse(reader.ReadLine());
+            tsmiShowControls.Checked    = bool.Parse(reader.ReadLine());
+            tsmiShowDate.Checked        = bool.Parse(reader.ReadLine());
+            tsmiShowWeekday.Checked     = bool.Parse(reader.ReadLine());
+            tsmiAutorun.Checked         = bool.Parse(reader.ReadLine());
+            labelTime.BackColor = backgroundDialog.Color    = Color.FromArgb(int.Parse(reader.ReadLine()));
+            labelTime.ForeColor = foregroundDialog.Color    = Color.FromArgb(int.Parse(reader.ReadLine()));
+            fontDialog.FontFile         = reader.ReadLine();
+            
+            
+            reader.Close();
+
+            if (!string.IsNullOrWhiteSpace(fontDialog.FontFile))
+            {
+                PrivateFontCollection pfc = new PrivateFontCollection();
+                pfc.AddFontFile(fontDialog.FontFile);
+                labelTime.Font = new Font(pfc.Families[0] , float.Parse(reader.ReadLine()));
+            }
+        }
         private void timer_Tick(object sender, EventArgs e)
         {
             
@@ -105,6 +150,7 @@ namespace Clock
         {
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
+                labelTime.Font = fontDialog.Font;
                 //{
                 //  this.pfc_label = fontDialog.pfc;
                 //  labelTime.Font = fontDialog.Font;
@@ -114,7 +160,7 @@ namespace Clock
                 // после чего fontDialog подхватывается заного и т.к. Font это параметр шрифта на всём окне то и его
                 // Width и Height автоматчески меняется как auto scalling ( Звучит абсурдно но простестированно )
 
-                labelTime.Font = new Font(fontDialog.pfc.Families[0], (float)fontDialog.Value); // test 1
+                //labelTime.Font = new Font(fontDialog.pfc.Families[0], (float)fontDialog.Value); // test 1
                 // уже лучше Font напрямую создаётся в объекте labelTime из копий переменных fontDialog
 
                 
@@ -130,6 +176,11 @@ namespace Clock
             else key.DeleteValue(key_name, false);
             
             key.Dispose();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveSettings();
         }
     }
 }
