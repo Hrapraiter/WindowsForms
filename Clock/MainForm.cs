@@ -14,14 +14,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;      //Input/Output
 using System.Runtime.InteropServices;
+using System.Drawing.Text;
 
 namespace Clock
 {
     public partial class MainForm : Form
     {
+        //PrivateFontCollection pfc_label = new PrivateFontCollection(); // test 0
+
         FontDialog fontDialog;
         ColorDialog backgroundDialog;
         ColorDialog foregroundDialog;
+        [DllImport("kernel32.dll")]
+        private static extern void AllocConsole();
         public MainForm()
         {
             InitializeComponent();
@@ -30,15 +35,12 @@ namespace Clock
                 Screen.PrimaryScreen.Bounds.Width - this.Width - 50,
                 50
                 );
-
+            
             backgroundDialog = new ColorDialog();
             foregroundDialog = new ColorDialog();
             fontDialog = new FontDialog(this);
-
-            
-           
         }
-        
+
         
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -54,7 +56,7 @@ namespace Clock
             if (checkBoxShowWeekDay.Checked) labelTime.Text += $"\n{DateTime.Now.ToString("ddd")}";
 
             notifyIcon.Text = labelTime.Text;
-
+            
         }
         void setVisibility(bool visible)
         {
@@ -64,7 +66,7 @@ namespace Clock
             this.ShowInTaskbar = visible;                    // Скрываем кнопку приложения в панели задач
             this.FormBorderStyle = visible ? FormBorderStyle.FixedToolWindow : FormBorderStyle.None;    // Полностью убираем границы окна.
             this.TransparencyKey = visible ? Color.Empty : this.BackColor;          // Делаем окно прозначным.
-            // Для того чтобы сделать окно прозрачным, его TransperencyKey должен совпадать с BackColor.
+            // Для того чтобы сделать окно прозрачным, его TransperencyKey должен совпадать с BackColor.    
         }
         private void buttonHideControls_Click(object sender, EventArgs e)=>tsmiShowControls.Checked = false;
         private void labelTime_DoubleClick(object sender, EventArgs e)=>tsmiShowControls.Checked = true;
@@ -102,8 +104,32 @@ namespace Clock
         private void tsmiFont_Click(object sender, EventArgs e)
         {
             if (fontDialog.ShowDialog() == DialogResult.OK)
-                labelTime.Font = fontDialog.Font;
+            {
+                //{
+                //  this.pfc_label = fontDialog.pfc;
+                //  labelTime.Font = fontDialog.Font;
+                //
+                //} test 0
+                // при закрытии окна fontDialog он не обнуляется
+                // после чего fontDialog подхватывается заного и т.к. Font это параметр шрифта на всём окне то и его
+                // Width и Height автоматчески меняется как auto scalling ( Звучит абсурдно но простестированно )
+
+                labelTime.Font = new Font(fontDialog.pfc.Families[0], (float)fontDialog.Value); // test 1
+                // уже лучше Font напрямую создаётся в объекте labelTime из копий переменных fontDialog
+
+                
+            }
         }
-        
+
+        private void tsmiAutorun_CheckedChanged(object sender, EventArgs e)
+        {
+            string key_name = "Clock_PV_522";
+            RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            
+            if (tsmiAutorun.Checked) key.SetValue(key_name, Application.ExecutablePath);
+            else key.DeleteValue(key_name, false);
+            
+            key.Dispose();
+        }
     }
 }
