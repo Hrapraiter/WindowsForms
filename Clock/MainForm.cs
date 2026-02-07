@@ -43,7 +43,7 @@ namespace Clock
         }
         void SaveSettings() 
         {
-            Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..");
+            Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..");
             string filename = "Settings.ini";
             StreamWriter writer = new StreamWriter(filename);
             
@@ -64,7 +64,7 @@ namespace Clock
         }
         void LoadSettings() 
         {
-            Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..\\..\\..");
+            Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..");
             string filename = "Settings.ini";
             try
             {
@@ -81,6 +81,7 @@ namespace Clock
 
                 if (!string.IsNullOrWhiteSpace(fontDialog.FontFile))
                 {
+                    fontDialog.SelectItem_form_fonts(fontDialog.FontFile.Split('\\').Last());
                     fontDialog.ApplyFontExample(fontDialog.FontFile , float.Parse(reader.ReadLine()));
                     labelTime.Font = fontDialog.Font;
                     

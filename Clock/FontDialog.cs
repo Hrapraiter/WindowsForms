@@ -29,6 +29,8 @@ namespace Clock
             this.fonts = new Dictionary<string, string>();
             this.StartPosition = FormStartPosition.Manual;
             this.parent = parent;
+            numericUpDownFontSize.ReadOnly = false;
+            LoadFonts();
         }
         [DllImport("kernel32.dll")]
         public static extern void AllocConsole();
@@ -56,8 +58,8 @@ namespace Clock
             {
                 if (fonts.ContainsKey(files[i].Split('\\').Last())) continue;
                 fonts.Add(files[i].Split('\\').Last(), files[i]);
+                comboBoxFonts.Items.Add(files[i].Split('\\').Last());
             }
-            comboBoxFonts.Items.AddRange(fonts.Keys.ToArray());
         }
         void Traverse(string path)
         {
@@ -76,7 +78,6 @@ namespace Clock
                     this.parent.Location.X - this.Width / 2,
                     this.parent.Location.Y + 100
                 );
-            LoadFonts();
         }
         public void ApplyFontExample(string filename , float size)
         {
@@ -85,6 +86,13 @@ namespace Clock
             pfc = new PrivateFontCollection();// test 0 & 1
             pfc.AddFontFile(filename);
             labelExample.Font = new Font(pfc.Families[0], size);
+            Font = labelExample.Font;
+            numericUpDownFontSize.Value = (decimal)size;
+        }
+        public void SelectItem_form_fonts(string fontname) 
+        {
+            if (! fonts.ContainsKey(fontname)) return;
+            comboBoxFonts.SelectedItem = fontname;
         }
         private void buttonOK_Click(object sender, EventArgs e)
         {
