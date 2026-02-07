@@ -16,6 +16,7 @@ using System.IO;      //Input/Output
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Drawing.Text;
+using System.Data.SqlTypes;
 
 namespace Clock
 {
@@ -40,13 +41,15 @@ namespace Clock
             backgroundDialog = new ColorDialog();
             foregroundDialog = new ColorDialog();
             LoadSettings();
+            
         }
         void SaveSettings() 
         {
             Directory.SetCurrentDirectory($"{Application.ExecutablePath}\\..");
             string filename = "Settings.ini";
             StreamWriter writer = new StreamWriter(filename);
-            
+
+            writer.WriteLine($"{this.Location.X}x{this.Location.Y}");
             writer.WriteLine(tsmiTopmost.Checked);
             writer.WriteLine(tsmiShowControls.Checked);
             writer.WriteLine(tsmiShowDate.Checked);
@@ -69,6 +72,8 @@ namespace Clock
             try
             {
                 StreamReader reader = new StreamReader(filename);
+                string[] pos_values = reader.ReadLine().Split('x');
+                this.Location = new Point(int.Parse(pos_values.First()), int.Parse(pos_values.Last()));
 
                 tsmiTopmost.Checked         = bool.Parse(reader.ReadLine());
                 tsmiShowControls.Checked    = bool.Parse(reader.ReadLine());
@@ -189,24 +194,8 @@ namespace Clock
             SaveSettings();
         }
 
-        static bool window_move = false;
-        private void labelTime_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (tsmiShowControls.Checked) return;
-            if(e.Button == MouseButtons.Left) 
-            {
-                Thread thread = new Thread
-                    (
-                        () => this.Location = new Point(e.X, e.Y)
-                    );
-                thread.Start();
-            }
-        }
-
-        private void labelTime_MouseUp(object sender, MouseEventArgs e)
-        {
-            if(e.Button == MouseButtons.Left)
-                window_move = false;
-        }
+        
+        
+        
     }
 }
