@@ -27,7 +27,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1AC8AFC41C364BEEAE10D4E824AC14AC"
+        "MsmKey" = "8:_11F6950FDB7D4EFEA60983BCF3F877C7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_173ACEBFDE794D93A85851AB441175EC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -153,6 +159,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_992FB9812E7F4DB5A847C25ED6EA9DC8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9BA876B6C09A4831A706955CA9147C2E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -195,12 +207,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_EB0B3DF69A80483588FDA79FBC14134E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_EF8C653D43F34CF9989DE73BEEC0C17A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -226,7 +232,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EB0B3DF69A80483588FDA79FBC14134E"
+        "OwnerKey" = "8:_173ACEBFDE794D93A85851AB441175EC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -254,6 +260,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -278,6 +292,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -348,10 +370,41 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1AC8AFC41C364BEEAE10D4E824AC14AC"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_11F6950FDB7D4EFEA60983BCF3F877C7"
             {
             "SourcePath" = "8:..\\Clock\\bin\\Debug\\Settings.ini"
             "TargetName" = "8:Settings.ini"
+            "Tag" = "8:"
+            "Folder" = "8:_B103AA953EF54538A565F433DE7BE1B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_173ACEBFDE794D93A85851AB441175EC"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Clock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_173ACEBFDE794D93A85851AB441175EC"
+                    {
+                    "Name" = "8:Clock.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\Clock\\bin\\Debug\\Clock.exe"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B103AA953EF54538A565F433DE7BE1B4"
             "Condition" = "8:"
@@ -768,6 +821,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_992FB9812E7F4DB5A847C25ED6EA9DC8"
+            {
+            "SourcePath" = "8:..\\Clock\\flip_cat.gif"
+            "TargetName" = "8:flip_cat.gif"
+            "Tag" = "8:"
+            "Folder" = "8:_B103AA953EF54538A565F433DE7BE1B4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9BA876B6C09A4831A706955CA9147C2E"
             {
             "SourcePath" = "8:..\\Clock\\Fonts\\TrueType\\SFDigitalReadout-LightObliq.ttf"
@@ -892,37 +965,6 @@
             {
             "SourcePath" = "8:..\\Clock\\ico\\ios-8-Clock-icon_43831.ico"
             "TargetName" = "8:ios-8-Clock-icon_43831.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_B103AA953EF54538A565F433DE7BE1B4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EB0B3DF69A80483588FDA79FBC14134E"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Clock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_EB0B3DF69A80483588FDA79FBC14134E"
-                    {
-                    "Name" = "8:Clock.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Clock\\bin\\Debug\\Clock.exe"
-            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_B103AA953EF54538A565F433DE7BE1B4"
             "Condition" = "8:"
@@ -1240,7 +1282,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_40E8186F102D4B3E92A1068CBC5CD14F"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AB66F456C6B84E499C79C2EFBFAF391D"
             {
             "Name" = "8:Clock.exe"
             "Arguments" = "8:"
@@ -1248,7 +1290,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_EB0B3DF69A80483588FDA79FBC14134E"
+            "Target" = "8:_173ACEBFDE794D93A85851AB441175EC"
             "Folder" = "8:_93109BA196E84C77911576D0A0F46C15"
             "WorkingFolder" = "8:_B103AA953EF54538A565F433DE7BE1B4"
             "Icon" = "8:_CD67C77B816D4261A06520CB4921FDE1"
