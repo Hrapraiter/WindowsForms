@@ -119,6 +119,7 @@ namespace Clock
             checkBoxShowDate.Visible = visible;               // Делает 'checkBoxShowDate невидимим
             checkBoxShowWeekDay.Visible = visible;            // Делает 'checkBoxShowWeekday' невидимым
             buttonHideControls.Visible = visible;             // Делаем кнопку 'buttonHideControls' невидимой
+            backgroundBox.Visible = visible;
             this.ShowInTaskbar = visible;                    // Скрываем кнопку приложения в панели задач
             this.FormBorderStyle = visible ? FormBorderStyle.FixedToolWindow : FormBorderStyle.None;    // Полностью убираем границы окна.
             this.TransparencyKey = visible ? Color.Empty : this.BackColor;          // Делаем окно прозначным.
@@ -193,9 +194,27 @@ namespace Clock
         {
             SaveSettings();
         }
+        static bool isPressedLabel = false;
+        private void labelTime_MouseMove(object sender, MouseEventArgs e)
+        {
+            
+             if(isPressedLabel && !tsmiShowControls.Checked)
+                this.Location = new Point
+                    (Cursor.Position.X - this.labelTime.Width/2 ,
+                    Cursor.Position.Y - this.labelTime.Height/2);
+            
+        }
 
-        
-        
-        
+        private void labelTime_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                isPressedLabel = true;
+        }
+
+        private void labelTime_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+                isPressedLabel = false;
+        }
     }
 }

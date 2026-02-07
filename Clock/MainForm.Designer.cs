@@ -56,7 +56,9 @@ namespace Clock
             this.checkBoxShowWeekDay = new System.Windows.Forms.CheckBox();
             this.buttonHideControls = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.backgroundBox = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.backgroundBox)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTime
@@ -71,8 +73,9 @@ namespace Clock
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "CurrentTime";
             this.labelTime.DoubleClick += new System.EventHandler(this.labelTime_DoubleClick);
-            
-            
+            this.labelTime.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseDown);
+            this.labelTime.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseMove);
+            this.labelTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.labelTime_MouseUp);
             // 
             // contextMenuStrip
             // 
@@ -253,6 +256,16 @@ namespace Clock
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
+            // backgroundBox
+            // 
+            this.backgroundBox.Image = ((System.Drawing.Image)(resources.GetObject("backgroundBox.Image")));
+            this.backgroundBox.Location = new System.Drawing.Point(-20, 85);
+            this.backgroundBox.Name = "backgroundBox";
+            this.backgroundBox.Size = new System.Drawing.Size(480, 250);
+            this.backgroundBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.backgroundBox.TabIndex = 4;
+            this.backgroundBox.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -263,6 +276,7 @@ namespace Clock
             this.Controls.Add(this.checkBoxShowWeekDay);
             this.Controls.Add(this.checkBoxShowDate);
             this.Controls.Add(this.labelTime);
+            this.Controls.Add(this.backgroundBox);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.Desktop;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -274,6 +288,7 @@ namespace Clock
             this.Text = "Clock PV_522";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.contextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.backgroundBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,6 +319,7 @@ namespace Clock
         private System.Windows.Forms.ToolStripMenuItem tsmiAutorun;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem tsmiExit;
+        private System.Windows.Forms.PictureBox backgroundBox;
     }
 }
 
