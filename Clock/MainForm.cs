@@ -55,7 +55,7 @@ namespace Clock
             writer.WriteLine(labelTime.BackColor.ToArgb());
             writer.WriteLine(labelTime.ForeColor.ToArgb());
             writer.WriteLine(fontDialog.FontFile);
-            writer.WriteLine(labelTime.Font.Size);
+            writer.WriteLine(fontDialog.FontSize);
             
 
             writer.Close();
@@ -70,21 +70,21 @@ namespace Clock
             {
                 StreamReader reader = new StreamReader(filename);
 
-                tsmiTopmost.Checked = bool.Parse(reader.ReadLine());
-                tsmiShowControls.Checked = bool.Parse(reader.ReadLine());
-                tsmiShowDate.Checked = bool.Parse(reader.ReadLine());
-                tsmiShowWeekday.Checked = bool.Parse(reader.ReadLine());
-                tsmiAutorun.Checked = bool.Parse(reader.ReadLine());
-                labelTime.BackColor = backgroundDialog.Color = Color.FromArgb(int.Parse(reader.ReadLine()));
-                labelTime.ForeColor = foregroundDialog.Color = Color.FromArgb(int.Parse(reader.ReadLine()));
-                fontDialog.FontFile = reader.ReadLine();
+                tsmiTopmost.Checked         = bool.Parse(reader.ReadLine());
+                tsmiShowControls.Checked    = bool.Parse(reader.ReadLine());
+                tsmiShowDate.Checked        = bool.Parse(reader.ReadLine());
+                tsmiShowWeekday.Checked     = bool.Parse(reader.ReadLine());
+                tsmiAutorun.Checked         = bool.Parse(reader.ReadLine());
+                labelTime.BackColor         = backgroundDialog.Color = Color.FromArgb(int.Parse(reader.ReadLine()));
+                labelTime.ForeColor         = foregroundDialog.Color = Color.FromArgb(int.Parse(reader.ReadLine()));
+                fontDialog.FontFile         = reader.ReadLine();
 
                 if (!string.IsNullOrWhiteSpace(fontDialog.FontFile))
                 {
                     fontDialog.SelectItem_form_fonts(fontDialog.FontFile.Split('\\').Last());
-                    fontDialog.ApplyFontExample(fontDialog.FontFile , float.Parse(reader.ReadLine()));
+                    fontDialog.FontSize = float.Parse(reader.ReadLine());
+                    fontDialog.ApplyFontExample(fontDialog.FontFile);
                     labelTime.Font = fontDialog.Font;
-                    
                 }
                 reader.Close();
             }
@@ -187,6 +187,26 @@ namespace Clock
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveSettings();
+        }
+
+        static bool window_move = false;
+        private void labelTime_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (tsmiShowControls.Checked) return;
+            if(e.Button == MouseButtons.Left) 
+            {
+                Thread thread = new Thread
+                    (
+                        () => this.Location = new Point(e.X, e.Y)
+                    );
+                thread.Start();
+            }
+        }
+
+        private void labelTime_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+                window_move = false;
         }
     }
 }

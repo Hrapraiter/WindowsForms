@@ -20,8 +20,17 @@ namespace Clock
         Dictionary<string, string> fonts;
         //public decimal Value { get { return numericUpDownFontSize.Value; } set { numericUpDownFontSize.Value = value; } }//test 1 
         public PrivateFontCollection pfc { get; private set; }// test 0 & 1
-        public string FontFile { get; set; }
+        double fontSize;
         public Font Font { get; private set; }
+        public string FontFile { get; set; }
+        public float FontSize 
+        {
+            get => (float)fontSize;
+            set => numericUpDownFontSize.Value = (decimal)(fontSize =
+                value < (float)numericUpDownFontSize.Minimum ? (float)numericUpDownFontSize.Minimum :
+                value > (float)numericUpDownFontSize.Maximum ? (float)numericUpDownFontSize.Maximum:
+                value);
+        }
         public FontDialog(Form parent)
         {
             InitializeComponent();
@@ -79,15 +88,15 @@ namespace Clock
                     this.parent.Location.Y + 100
                 );
         }
-        public void ApplyFontExample(string filename , float size)
+        
+        public void ApplyFontExample(string filename)
         {
             //PrivateFontCollection pfc = new PrivateFontCollection();
             if (pfc != null) pfc.Dispose();
             pfc = new PrivateFontCollection();// test 0 & 1
             pfc.AddFontFile(filename);
-            labelExample.Font = new Font(pfc.Families[0], size);
+            labelExample.Font = new Font(pfc.Families[0], (float)numericUpDownFontSize.Value);
             Font = labelExample.Font;
-            numericUpDownFontSize.Value = (decimal)size;
         }
         public void SelectItem_form_fonts(string fontname) 
         {
@@ -97,15 +106,16 @@ namespace Clock
         private void buttonOK_Click(object sender, EventArgs e)
         {
             this.Font = labelExample.Font;
+            this.FontSize = (float)numericUpDownFontSize.Value;
             this.FontFile = fonts[comboBoxFonts.SelectedItem.ToString()];
         }
         private void comboBoxFonts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyFontExample(fonts[comboBoxFonts.SelectedItem.ToString()] , (float)numericUpDownFontSize.Value);   
+            ApplyFontExample(fonts[comboBoxFonts.SelectedItem.ToString()]);   
         }
         private void numericUpDownFontSize_ValueChanged(object sender, EventArgs e)
         {
-            ApplyFontExample(fonts[comboBoxFonts.SelectedItem.ToString()] , (float)numericUpDownFontSize.Value);
+            ApplyFontExample(fonts[comboBoxFonts.SelectedItem.ToString()]);
         }
     }
 }
