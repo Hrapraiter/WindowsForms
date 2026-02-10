@@ -27,6 +27,9 @@ namespace Clock
         FontDialog fontDialog;
         ColorDialog backgroundDialog;
         ColorDialog foregroundDialog;
+        Point mouseLocation;
+        bool mouseDown = false;
+
         [DllImport("kernel32.dll")]
         private static extern void AllocConsole();
         public MainForm()
@@ -41,7 +44,6 @@ namespace Clock
             backgroundDialog = new ColorDialog();
             foregroundDialog = new ColorDialog();
             LoadSettings();
-            
         }
         void SaveSettings() 
         {
@@ -194,27 +196,31 @@ namespace Clock
         {
             SaveSettings();
         }
-        static bool isPressedLabel = false;
+        
         private void labelTime_MouseMove(object sender, MouseEventArgs e)
         {
             
-             if(isPressedLabel && !tsmiShowControls.Checked)
+             if(mouseDown)
                 this.Location = new Point
-                    (Cursor.Position.X - this.labelTime.Width/2 ,
-                    Cursor.Position.Y - this.labelTime.Height/2);
-            
+                    (
+                        Cursor.Position.X - mouseLocation.X,
+                        Cursor.Position.Y - mouseLocation.Y
+                    );
         }
 
         private void labelTime_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-                isPressedLabel = true;
+            if (e.Button == MouseButtons.Left && !tsmiShowControls.Checked)
+            {
+                mouseLocation = new Point(e.X, e.Y);
+                mouseDown = true;
+            }
         }
 
         private void labelTime_MouseUp(object sender, MouseEventArgs e)
         {
             if(e.Button == MouseButtons.Left)
-                isPressedLabel = false;
+                mouseDown = false;
         }
     }
 }
